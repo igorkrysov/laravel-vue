@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\User;
 use Session;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
     /**
      * Show Form Login.
@@ -29,9 +29,9 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-        'email' => 'required|email|max:50',
-        'password' => 'required',
-      ]);
+      'email' => 'required|email|max:50',
+      'password' => 'required',
+    ]);
 
         $user = User::where('email', $request->input('email'))->get();
 
