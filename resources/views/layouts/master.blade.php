@@ -16,18 +16,15 @@
             </div>
             <div class="row">
               <div class="message">
-                @if ($errors->any())
+                @if(session()->has('message_danger'))
                   <div class="alert alert-danger">
-                    <ul id='errors'>
-                    @foreach ($errors->all() as $error)
-                      <li>{{ $error }}</li>
-                    @endforeach
-                    </ul>
+                    {{ session()->get('message_danger') }}
                   </div>
                 @endif
-                @if(session()->has('message'))
+
+                @if(session()->has('message_success'))
                   <div class="alert alert-success">
-                    {{ session()->get('message') }}
+                    {{ session()->get('message_-success') }}
                   </div>
                 @endif
               </div>

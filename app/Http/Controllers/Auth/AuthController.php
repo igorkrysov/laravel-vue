@@ -29,9 +29,9 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-      'email' => 'required|email|max:50',
-      'password' => 'required',
-    ]);
+          'email' => 'required|email|max:50',
+          'password' => 'required',
+        ]);
 
         $user = User::where('email', $request->input('email'))->get();
 
@@ -43,7 +43,7 @@ class AuthController extends Controller
             }
         }
 
-        return Redirect::back()->withErrors(['Your passed incorrect data!']);
+        return Redirect::back()->withInput()->with(['message_danger' => 'Your passed incorrect data!']);
     }
 
     /**
