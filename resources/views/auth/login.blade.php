@@ -9,16 +9,15 @@
       <form method="post" action="{{ route('login.login') }}">
         {{ csrf_field() }}
 
-
-          <div class="form-group {!! ($errors->has('email') ? 'has-error' : '') !!}">
-            <label for="email">Email:</label>
-            <input type="text" class="form-control Error" id="email" name="email" placeholder="Enter email" value="{{ old('email') }}">
-            <span class="help-block">
-              @foreach ($errors->get('email') as $message)
-                  <strong>{{ $message }}</strong><br>
-              @endforeach
-            </span>
-          </div>
+        <div class="form-group {!! ($errors->has('email') ? 'has-error' : '') !!}">
+          <label for="email">Email:</label>
+          <input type="text" class="form-control Error" id="email" name="email" placeholder="Enter email" value="{{ old('email') }}">
+          <span class="help-block">
+            @foreach ($errors->get('email') as $message)
+                <strong>{{ $message }}</strong><br>
+            @endforeach
+          </span>
+        </div>
 
 
         <div class="form-group {!! ($errors->has('password') ? 'has-error' : '') !!}">

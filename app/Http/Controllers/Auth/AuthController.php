@@ -33,13 +33,17 @@ class AuthController extends Controller
           'password' => 'required',
         ]);
 
-        $user = User::where('email', $request->input('email'))->get();
+        $user = User::where('email', $request->input('email'))->first();
 
         if ($user->count() != 0) {
-            if (Hash::check($request->input('password'), $user[0]->password)) {
+            if (Hash::check($request->input('password'), $user->password)) {
                 Session::put('user', $user);
 
-                return Redirect::route('start')->with(['message', 'Your successful login']);
+                if ($user->reset == 1) {
+                    return Redirect::route('change_password.index');
+                }
+
+                return Redirect::route('start')->with(['message_success' => 'Your successful login']);
             }
         }
 
@@ -56,5 +60,39 @@ class AuthController extends Controller
         Session::forget('user');
 
         return Redirect::route('login.index');
+    }
+
+    /**
+     * Show the form for reset a password.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function change_password()
+    {
+        //
+        return view("auth.reset");
+        //return view("users.reset");
+    }
+
+    /**
+     * Store new password.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store_password(Request $request)
+    {
+        //
+        $request->validate([
+          'password' => 'required|string|min:6|confirmed',
+        ]);
+
+
+        $user = User::find((Session::get('user'))->id);
+        $user->password = bcrypt($request->input('password'));
+        $user->reset = 0;
+        $user->save();
+
+        return $this->logout()->with(['message_success' => 'Your password was changed! You need login again']);
+        ;
     }
 }

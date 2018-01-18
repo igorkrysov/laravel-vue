@@ -26,4 +26,23 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function group()
+    {
+        return $this->belongsTo('App\Group', 'group_id', 'id');
+    }
+
+    /**
+     * Check user in group administrator
+     *
+     * @var array
+     */
+    public function is_admin()
+    {
+        if ($this->group->group == "administrator") {
+            return true;
+        }
+
+        return false;
+    }
 }
