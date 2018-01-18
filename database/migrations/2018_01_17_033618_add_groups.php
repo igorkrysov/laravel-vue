@@ -16,7 +16,7 @@ class AddGroups extends Migration
         Schema::table('users', function (Blueprint $table) {
             //
             $table->integer('group_id')->unsigned()->nullable();
-            $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');        
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('set null');        
         });
     }
 

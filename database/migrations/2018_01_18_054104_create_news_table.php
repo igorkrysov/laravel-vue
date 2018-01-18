@@ -24,7 +24,7 @@ class CreateNewsTable extends Migration
             $table->foreign('category_id')->references('id')->on('news_categories')->onDelete('cascade');
 
             $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

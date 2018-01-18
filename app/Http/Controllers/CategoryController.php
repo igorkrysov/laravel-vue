@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\NewsCategory;
+use Session;
 
 class CategoryController extends Controller
 {
@@ -71,6 +72,12 @@ class CategoryController extends Controller
     public function edit($id)
     {
         //
+        $category = NewsCategory::find($id);
+
+        if($category->user_id != (Session::get('user'))->id){
+          return redirect()->route("category.index")->with(["message_danger" => "You don't access to this page!"]);
+        }
+
         return view("news_categories.edit", ["category" => NewsCategory::find($id)]);
     }
 
@@ -89,6 +96,11 @@ class CategoryController extends Controller
         ]);
 
         $category = NewsCategory::find($id);
+
+        if($category->user_id != (Session::get('user'))->id){
+          return Redirect()->route("category.index")->with(["message_danger" => "You don't access to this page!"]);
+        }
+
         $category->category = $request->input('category');
         $category->save();
 
