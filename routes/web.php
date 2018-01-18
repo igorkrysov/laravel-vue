@@ -24,6 +24,8 @@ Route::group(['middleware' => 'is_auth'], function(){
 
   Route::post('/store_password', 'Auth\AuthController@store_password')->name('store_password.store');
 
+  Route::resource('/category', 'CategoryController');
+
   Route::group(['middleware' => 'is_admin'], function(){
 
     Route::post('/users', 'UserController@store')->name('users.store');
@@ -31,7 +33,7 @@ Route::group(['middleware' => 'is_auth'], function(){
     Route::get('/send_test_email/{name}/{password}/{mail}', 'MailController@send');
 
   });
-  
+
 });
 
 Route::get('/login', 'Auth\AuthController@index')->name("login.index");

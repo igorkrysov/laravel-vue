@@ -55,7 +55,7 @@ class UserController extends Controller
         $user->group_id = $request->input('group_id');
         $user->save();
 
-        (new MailController())->send($request->input('name'), $pass, $request->input('email'));
+        MailController::send($request->input('name'), $pass, $request->input('email'));
 
         return Redirect::back()->with(['message_success' => 'User is added']);
     }
