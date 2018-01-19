@@ -60,7 +60,6 @@ class CategoryController extends Controller
     public function show($id)
     {
         //
-
     }
 
     /**
@@ -74,8 +73,8 @@ class CategoryController extends Controller
         //
         $category = NewsCategory::find($id);
 
-        if($category->user_id != (Session::get('user'))->id){
-          return redirect()->route("category.index")->with(["message_danger" => "You don't access to this page!"]);
+        if ($category->user_id != (Session::get('user'))->id && !(Session::get('user'))->is_admin()) {
+            return redirect()->route("category.index")->with(["message_danger" => "You don't access to this page!"]);
         }
 
         return view("news_categories.edit", ["category" => NewsCategory::find($id)]);
@@ -97,8 +96,8 @@ class CategoryController extends Controller
 
         $category = NewsCategory::find($id);
 
-        if($category->user_id != (Session::get('user'))->id){
-          return Redirect()->route("category.index")->with(["message_danger" => "You don't access to this page!"]);
+        if ($category->user_id != (Session::get('user'))->id && !(Session::get('user'))->is_admin()) {
+            return Redirect()->route("category.index")->with(["message_danger" => "You don't access to this page!"]);
         }
 
         $category->category = $request->input('category');
@@ -116,7 +115,13 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
-        NewsCategory::destroy($id);
+        $news = News::find($id);
+
+        if ($news->user_id != (Session::get('user'))->id && !(Session::get('user'))->is_admin()) {
+            return redirect()->route("news.index")->with(["message_danger" => "You don't access to this page!"]);
+        }
+
+        $news::delete($id);
 
         return redirect()->back()->with(['message_success' => "Category was removed"]);
     }

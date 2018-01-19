@@ -26,6 +26,8 @@ Route::group(['middleware' => 'is_auth'], function(){
 
   Route::resource('/category', 'CategoryController');
 
+  Route::resource('/news', 'NewsController');
+
   Route::group(['middleware' => 'is_admin'], function(){
 
     Route::post('/users', 'UserController@store')->name('users.store');
@@ -39,3 +41,7 @@ Route::group(['middleware' => 'is_auth'], function(){
 Route::get('/login', 'Auth\AuthController@index')->name("login.index");
 
 Route::post('/login', 'Auth\AuthController@login')->name("login.login");
+
+Route::get('/test', function (){
+  echo time();
+});

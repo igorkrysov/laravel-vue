@@ -16,6 +16,8 @@
       <ul class="nav navbar-nav">
         <li><a href="{{ route('users.index') }}">Users</a></li>
         <li><a href="{{ route('category.index') }}">Categories</a></li>
+        <li><a href="{{ route('news.index') }}">News</a></li>
+        <li><a href="{{ route('news.create') }}">Create New</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         @if(Session::has('user'))

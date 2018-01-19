@@ -18,9 +18,9 @@ class CreateNewsTable extends Migration
             $table->timestamps();
             $table->string('title', 60);
             $table->string('text', 2500);
-            $table->string('img', 10);
+            $table->string('img', 20)->nullable();
 
-            $table->integer('category_id')->unsigned()->nullable();
+            $table->integer('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('news_categories')->onDelete('cascade');
 
             $table->integer('user_id')->unsigned()->nullable();
