@@ -1,0 +1,29 @@
+.news{
+  margin-top: 50px;
+}
+.new{
+  border: 1px solid #c1c1c1;
+  background: #ffff;
+  height: 225px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.tite-new-preview{
+  font-family: Tahoma;
+
+}
+
+.preview{
+  width: 220px;
+  padding-top:10px;
+}
+
+.addtion-information{
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.list-inline {
+  display: flex;
+  justify-content: center;
+}

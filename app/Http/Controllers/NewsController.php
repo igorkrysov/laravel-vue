@@ -127,7 +127,7 @@ class NewsController extends Controller
         $news = News::find($id);
 
         if ($news->user_id != (Session::get('user'))->id && !(Session::get('user'))->is_admin()) {
-            return redirect()->route("news.index")->with(["message_danger" => "You don't access to this page!"]);
+            return redirect()->route("news.index")->with(["message_danger" => "You don't access to delete this news!"]);
         }
 
         if (!empty($news->img)) {

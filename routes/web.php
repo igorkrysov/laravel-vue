@@ -43,5 +43,5 @@ Route::get('/login', 'Auth\AuthController@index')->name("login.index");
 Route::post('/login', 'Auth\AuthController@login')->name("login.login");
 
 Route::get('/test', function (){
-  echo time();
+  return view("news.list_for_user");
 });
