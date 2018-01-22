@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
 Route::group(['middleware' => 'is_auth'], function(){
 
   Route::get('/', function () {
@@ -26,7 +28,12 @@ Route::group(['middleware' => 'is_auth'], function(){
 
   Route::resource('/category', 'CategoryController');
 
-  Route::resource('/news', 'NewsController');
+
+  Route::get('admin_news', 'NewsController@index_admin');
+
+  Route::resource('/news', 'NewsController',['except' => [
+    'index'
+  ]]);
 
   Route::group(['middleware' => 'is_admin'], function(){
 
@@ -42,6 +49,4 @@ Route::get('/login', 'Auth\AuthController@index')->name("login.index");
 
 Route::post('/login', 'Auth\AuthController@login')->name("login.login");
 
-Route::get('/test', function (){
-  return view("news.list_for_user");
-});
+Route::get('news/{sortby?}/{category?}/{onlyphoto?}/{search?}', 'NewsController@index')->name('news.index');

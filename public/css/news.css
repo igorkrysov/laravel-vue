@@ -4,7 +4,7 @@
 .new{
   border: 1px solid #c1c1c1;
   background: #ffff;
-  height: 225px;
+  min-height: 225px;
   padding: 10px;
   margin-bottom: 20px;
 }
@@ -16,6 +16,7 @@
 .preview{
   width: 220px;
   padding-top:10px;
+  max-height: 170px;
 }
 
 .addtion-information{
@@ -26,4 +27,16 @@
 .list-inline {
   display: flex;
   justify-content: center;
+}
+
+input#search {
+  /* background-image: url('../img/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+   */
+
+}
+
+div.category {
+  color: #AF2F2F;
 }

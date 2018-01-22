@@ -11,11 +11,57 @@ use Session;
 class NewsController extends Controller
 {
     /**
+     * Display a listing of the resource with pagination and sorting and filter.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        //
+
+        $query  = News::query();
+        if ($request->get('sortby') == "dateup") {
+            $query->orderBy('created_at', 'desc');
+        }
+        if ($request->get('sortby') == "datedown") {
+            $query->orderBy('created_at', 'asc');
+        }
+        if ($request->get('sortby') == "titleup") {
+            $query->orderBy('title', 'desc');
+        }
+        if ($request->get('sortby') == "titledown") {
+            $query->orderBy('title', 'asc');
+        }
+
+        if ($request->get('category') != null && $request->get('category') != 0) {
+            $query->where('category_id', $request->get('category'));
+        }
+
+        if ($request->get('onlyphoto') == 1) {
+            $query->whereNotNull('img');
+        }
+
+        if ($request->has('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', '%' .$request->get('search'). '%')
+                ->orWhere('text', 'like', '%' .$request->get('search'). '%');
+            });
+        }
+
+        $list_news = $query->with('user')->paginate(3)->appends($request->except('page'));
+
+        if ($request->has("response")) {
+            return response()->json(['list_news' => $list_news, 'links' => $list_news->links()]);
+        }
+        return view("news.list_for_user", ['list_news' => $list_news, 'categories' => NewsCategory::all()]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index_admin()
     {
         //
         return view("news.list", ['news' => News::all()]);
@@ -65,6 +111,7 @@ class NewsController extends Controller
     public function show($id)
     {
         //
+        return view("news.show", ['news' => News::find($id)]);
     }
 
     /**

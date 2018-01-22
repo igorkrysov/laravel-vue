@@ -8,55 +8,59 @@
     <div class="row">
       <div class="col-md-12">
         <div class="form-inline">
-          <input type="text" placeholder="Search" id="search" name="seach" class="form-control">
-          <button class="btn btn-default"><i class="fa fa-search" aria-hidden="true"></i></button>
-
-          <select name="" id="" class="form-control">
-            <option value="1" selected>Gategory1</option>
-            <option value="2">Gategory2</option>
-          </select>
-          <label><input type="checkbox" value="" class="form-check-input checkbox-primary">Only with photoes</label>
-          <div class="form-group">
-            <label for="sort">Sort by: </label>
-            <select name="sort" id="sort" class="form-control">
-              <option value="1" selected>Date Up</option>
-              <option value="2">Date Down</option>
-              <option value="3">Alphabet Up</option>
-              <option value="4">Alphabet Down</option>
+          <form class="" id="filter" action="{{ route('news.index') }}" method="get">
+            <input type="text" placeholder="Search" id="search" name="search" class="form-control" value="{{ Request::get('search') }}">
+            <button class="btn btn-default" id="filter"><i class="fa fa-search" aria-hidden="true"></i></button>
+            <select name="category" id="category" class="form-control">
+              <option value="0" selected>All</option>
+              @foreach($categories as $category)
+                <option value="{{ $category->id }}" {{ (Request::get('category') == $category->id) ? 'selected' : '' }}>{{ $category->category }}</option>
+              @endforeach
             </select>
-          </div>
+            <label><input type="checkbox" name="onlyphoto" id="onlyphoto" value="1" class="form-check-input checkbox-primary"  {{ (Request::get('onlyphoto') == "1") ? 'checked' : '' }}>Only with photoes</label>
+            <div class="form-group">
+              <label for="sort">Sort by: </label>
 
+              <select name="sortby" id="sortby" class="form-control">
+                <option value="dateup" {{ (Request::get('sortby') == "dateup") ? 'selected' : '' }}>Date Up</option>
+                <option value="datedown" {{ (Request::get('sortby') == "datedown") ? 'selected' : '' }}>Date Down</option>
+                <option value="titleup" {{ (Request::get('sortby') == "titleup") ? 'selected' : '' }}>Alphabet Up</option>
+                <option value="titledown" {{ (Request::get('sortby') == "titledown") ? 'selected' : '' }}>Alphabet Down</option>
+              </select>
 
-          </div>
+            </div>
+          </form>
 
         </div>
-
       </div>
     </div>
+  </div>
 
-    <div class="row news">
-      <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-12 news">
+        @foreach($list_news as $news)
         <div class="row new">
           <div class="col-md-12 ">
             <div class="row">
+              <div class="col-md-12 category">
+                <h5 class="text-left addtion-information">Category: <span style="font-style:italic">: {{ $news->category->category }}</span></h5>
+              </div>
+            </div>
+            <div class="row">
                <div class="col-md-3">
-                 <img src="spacex.jpg" class="preview" alt="">
+                 <img src="{{ isset($news->img) ? asset('storage/'.$news->img) : 'img/news.jpg' }}" class="preview" alt="">
                </div>
                <div class="col-md-9">
                  <div class="row">
                    <div class="col-md-12">
-                     <h2 class="tite-new-preview">Title 1</h2>
+                     <h2 class="tite-new-preview">{{ $news->title }}</h2>
                    </div>
                  </div>
                  <div class="row">
                    <div class="col-md-12">
-                     @php
-                      $str = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae optio, perferendis et. Provident qui voluptatem, culpa eos sequi voluptatum quibusdam commodi iure vel, laudantium similique eveniet excepturi nihil maiores accusantium numquam rerum enim explicabo, modi odio ullam, adipisci illo quo minima! Molestias asperiores, beatae delectus ad illo dicta optio adipisci molestiae a perferendis, accusamus eligendi atque dolorem officia minus, quas magni quasi voluptas consectetur vero enim!";
-                     @endphp
-
-                     {{ substr($str,0,498) }}
+                     {!! substr($news->text,0,498) !!}
                      <span>
-                       ... <a href="#">read more</a>
+                       ... <a href="{{ route('news.show', $news->id) }}">read more</a>
                      </span>
                    </div>
                  </div>
@@ -69,29 +73,22 @@
             </div>
             <div class="row">
               <div class="col-md-4">
-                <h5 class="text-left addtion-information">Author: <span style="font-style:italic">Igor Krysov<span></h5>
+                <h5 class="text-left addtion-information">Author: <span style="font-style:italic">{{ $news->user->name }}<span></h5>
               </div>
               <div class="col-md-8">
-                <h5 class="text-right addtion-information">Date:  <span style="font-style:italic">11/11/2012</span></h5>
+                <h5 class="text-right addtion-information">Date:  <span style="font-style:italic">{{ date("d/m/Y", strtotime($news->created_at)) }}</span></h5>
               </div>
 
             </div>
           </div>
         </div>
+        @endforeach
 
       <div class="row">
         <div class="col-md-12">
-          <ul class="pagination list-inline">
-            <li><a href="#">First</a></li>
-            <li><a href="#">Back</a></li>
-            <li><a href="#">1</a></li>
-            <li class="active"><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">Next</a></li>
-            <li class="disabled"><a href="#">Last(936)</a></li>
-          </ul>
+          <div class="text-center" id="paginator">
+            {{ $list_news->links() }}
+          </div>
         </div>
       </div>
     </div>
@@ -101,4 +98,29 @@
 
 @push('css')
   <link href="{{ asset('css/news.css') }}" rel="stylesheet">
+@endpush
+
+@push('scripts')
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+<script>
+  $(document).ready(function(){
+    $('#sortby').on('change', function() {
+      $( "form#filter" ).submit();
+    });
+
+    $('#category').on('change', function() {
+      $( "form#filter" ).submit();
+    });
+
+    $('#onlyphoto').on('change', function() {
+      $( "form#filter" ).submit();
+    });
+
+    $('button#filter').on('click', function( event ) {
+       $( "form#filter" ).submit();
+    });
+
+  });
+</script>
 @endpush
