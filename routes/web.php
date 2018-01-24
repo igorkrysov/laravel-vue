@@ -12,6 +12,7 @@
 */
 
 
+
 Route::group(['middleware' => 'is_auth'], function(){
 
   Route::get('/', function () {
@@ -32,7 +33,7 @@ Route::group(['middleware' => 'is_auth'], function(){
   Route::get('admin_news', 'NewsController@index_admin');
 
   Route::resource('/news', 'NewsController',['except' => [
-    'index'
+    'index', 'show'
   ]]);
 
   Route::group(['middleware' => 'is_admin'], function(){
@@ -49,4 +50,8 @@ Route::get('/login', 'Auth\AuthController@index')->name("login.index");
 
 Route::post('/login', 'Auth\AuthController@login')->name("login.login");
 
+Route::get('news/{news}', 'NewsController@show')->name('news.show');
+
 Route::get('news/{sortby?}/{category?}/{onlyphoto?}/{search?}', 'NewsController@index')->name('news.index');
+
+Route::get('test', 'NewsController@test');

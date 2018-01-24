@@ -10,14 +10,16 @@
         <div class="form-inline">
           <form class="" id="filter" action="{{ route('news.index') }}" method="get">
             <input type="text" placeholder="Search" id="search" name="search" class="form-control" value="{{ Request::get('search') }}">
-            <button class="btn btn-default" id="filter"><i class="fa fa-search" aria-hidden="true"></i></button>
-            <select name="category" id="category" class="form-control">
-              <option value="0" selected>All</option>
-              @foreach($categories as $category)
-                <option value="{{ $category->id }}" {{ (Request::get('category') == $category->id) ? 'selected' : '' }}>{{ $category->category }}</option>
-              @endforeach
-            </select>
-            <label><input type="checkbox" name="onlyphoto" id="onlyphoto" value="1" class="form-check-input checkbox-primary"  {{ (Request::get('onlyphoto') == "1") ? 'checked' : '' }}>Only with photoes</label>
+            <button class="btn btn-default" id="find"><i class="fa fa-search" aria-hidden="true"></i></button>
+            <div class="form-group">
+              <label for="category">Category: </label>
+              <select name="category" id="category" class="form-control">
+                <option value="0" selected>All</option>
+                @foreach($categories as $category)
+                  <option value="{{ $category->id }}" {{ (Request::get('category') == $category->id) ? 'selected' : '' }}>{{ $category->category }}</option>
+                @endforeach
+              </select>
+            </div>
             <div class="form-group">
               <label for="sort">Sort by: </label>
 
@@ -29,6 +31,12 @@
               </select>
 
             </div>
+
+            <label>
+              <input type="checkbox" name="onlyphoto" id="onlyphoto" value="1" {{ (Request::get('onlyphoto') == "1") ? 'checked' : '' }}>
+              <span class="checkbox-custom"></span>
+              Only with photoes
+            </label>
           </form>
 
         </div>
@@ -47,10 +55,10 @@
               </div>
             </div>
             <div class="row">
-               <div class="col-md-3">
+               <div class="col-md-3 col-xs-3 col-sm-3 col-md-offset-0 col-xs-offset-4 col-sm-offset-4">
                  <img src="{{ isset($news->img) ? asset('storage/'.$news->img) : 'img/news.jpg' }}" class="preview" alt="">
                </div>
-               <div class="col-md-9">
+               <div class="col-md-9 col-xs-12 col-sm-12">
                  <div class="row">
                    <div class="col-md-12">
                      <h2 class="tite-new-preview">{{ $news->title }}</h2>
@@ -117,7 +125,7 @@
       $( "form#filter" ).submit();
     });
 
-    $('button#filter').on('click', function( event ) {
+    $('button#find').on('click', function( event ) {
        $( "form#filter" ).submit();
     });
 

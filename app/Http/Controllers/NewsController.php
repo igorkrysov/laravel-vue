@@ -10,6 +10,10 @@ use Session;
 
 class NewsController extends Controller
 {
+    public function test(){
+
+      
+    }
     /**
      * Display a listing of the resource with pagination and sorting and filter.
      *
@@ -50,9 +54,6 @@ class NewsController extends Controller
 
         $list_news = $query->with('user')->paginate(3)->appends($request->except('page'));
 
-        if ($request->has("response")) {
-            return response()->json(['list_news' => $list_news, 'links' => $list_news->links()]);
-        }
         return view("news.list_for_user", ['list_news' => $list_news, 'categories' => NewsCategory::all()]);
     }
 

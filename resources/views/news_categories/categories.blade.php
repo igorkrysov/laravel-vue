@@ -3,8 +3,13 @@
 @section('title', 'News categories')
 
 @section('content')
+@php
+$name = 'andy'
+
+@endphp
+Welcom, {{ $name or 'John' }}
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
+  <div class="col-md-7 col-md-offset-2">
     <h1 class="text-center">Add categories</h1><br>
     <form method="post" action="{{ route('category.store') }}">
       {{ csrf_field() }}
@@ -25,7 +30,7 @@
   </div>
 </div>
   <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-7 col-md-offset-2">
       <h1 class="text-center">List categories</h1><br>
         <table class="table table-bordered table-striped table-hover">
           <thead>
