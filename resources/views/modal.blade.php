@@ -1,9 +1,11 @@
 @extends('layouts.master')
 
-@section('title', 'News categories')
+@section('title', 'Login')
+
 @section('content')
-  <Category></Category>
+  <Document></Document>
 @endsection
+
 
 @push("scripts")
   <script src="{{ asset('js/app.js') }}"></script>

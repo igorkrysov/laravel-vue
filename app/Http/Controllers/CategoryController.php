@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\NewsCategory;
 use Session;
+use Response;
 
 class CategoryController extends Controller
 {
@@ -17,6 +18,17 @@ class CategoryController extends Controller
     {
         //
         return view("news_categories.categories", ['categories' => NewsCategory::all()]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function get_list()
+    {
+        //
+        return NewsCategory::all();
     }
 
     /**
@@ -48,7 +60,8 @@ class CategoryController extends Controller
         $category->user_id = $request->input('user_id');
         $category->save();
 
-        return redirect()->back()->with(['message_success' => 'Category successful added']);
+        //return redirect()->back()->with(['message_success' => 'Category successful added']);
+        return Response::json(['message_success' => 'Category successful added']);
     }
 
     /**
@@ -103,7 +116,8 @@ class CategoryController extends Controller
         $category->category = $request->input('category');
         $category->save();
 
-        return redirect()->route('category.index')->with(['message_success' => 'Category successful updated']);
+        return Response::json(['message_success' => 'Category successful updated']);
+        //return redirect()->route('category.index')->with(['message_success' => 'Category successful updated']);
     }
 
     /**
@@ -115,14 +129,15 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
-        $news = News::find($id);
+        $category = NewsCategory::find($id);
 
-        if ($news->user_id != (Session::get('user'))->id && !(Session::get('user'))->is_admin()) {
-            return redirect()->route("news.index")->with(["message_danger" => "You don't access to this page!"]);
+        if ($category->user_id != (Session::get('user'))->id && !(Session::get('user'))->is_admin()) {
+            return redirect()->route("category.index")->with(["message_danger" => "You don't access to this page!"]);
         }
 
-        $news::delete($id);
+        NewsCategory::destroy($id);
 
-        return redirect()->back()->with(['message_success' => "Category was removed"]);
+        return Response::json(['message_success' => 'Category successful removed']);
+        //return redirect()->back()->with(['message_success' => "Category was removed"]);
     }
 }

@@ -11,6 +11,7 @@
 |
 */
 
+Route::view('/modal', 'modal');
 
 
 Route::group(['middleware' => 'is_auth'], function(){
@@ -29,6 +30,8 @@ Route::group(['middleware' => 'is_auth'], function(){
 
   Route::resource('/category', 'CategoryController');
 
+  Route::get('categories', 'CategoryController@get_list');
+
 
   Route::get('admin_news', 'NewsController@index_admin');
 
@@ -43,6 +46,8 @@ Route::group(['middleware' => 'is_auth'], function(){
     Route::get('/send_test_email/{name}/{password}/{mail}', 'MailController@send');
 
   });
+
+  Route::get('session/get_user_id', 'SessionController@get_user_id');
 
 });
 
