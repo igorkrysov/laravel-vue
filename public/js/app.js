@@ -43108,6 +43108,8 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Modal__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Modal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ListCategoriesComponent_vue__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ListCategoriesComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ListCategoriesComponent_vue__);
 //
 //
 //
@@ -43177,12 +43179,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    Modal: __WEBPACK_IMPORTED_MODULE_0__Modal___default.a
+    Modal: __WEBPACK_IMPORTED_MODULE_0__Modal___default.a,
+    Categories: __WEBPACK_IMPORTED_MODULE_1__ListCategoriesComponent_vue___default.a
   },
   data: function data() {
     return {
@@ -43325,178 +43332,136 @@ var render = function() {
     "div",
     { staticClass: "row" },
     [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-7 col-md-offset-2" }, [
-            _c("h1", { staticClass: "text-center" }, [
-              _vm._v("Add categories")
-            ]),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "form",
-              {
-                attrs: { method: "post" },
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    _vm.addCategory()
+      _c(
+        "div",
+        { staticClass: "col-md-12" },
+        [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-7 col-md-offset-2" }, [
+              _c("h1", { staticClass: "text-center" }, [
+                _vm._v("Add categories")
+              ]),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  attrs: { method: "post" },
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      _vm.addCategory()
+                    }
                   }
-                }
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass: "form-group",
-                    class: { "has-error": _vm.test() }
-                  },
-                  [
-                    _c("label", { attrs: { for: "category" } }, [
-                      _vm._v("Category:")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.category.category,
-                          expression: "category.category"
-                        }
-                      ],
-                      staticClass: "form-control Error",
-                      attrs: {
-                        type: "text",
-                        id: "category",
-                        name: "category",
-                        placeholder: "Enter category",
-                        value: ""
-                      },
-                      domProps: { value: _vm.category.category },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "form-group",
+                      class: { "has-error": _vm.test() }
+                    },
+                    [
+                      _c("label", { attrs: { for: "category" } }, [
+                        _vm._v("Category:")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.category.category,
+                            expression: "category.category"
                           }
-                          _vm.$set(
-                            _vm.category,
-                            "category",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.category.user_id,
-                          expression: "category.user_id"
-                        }
-                      ],
-                      staticClass: "form-control Error",
-                      attrs: {
-                        type: "hidden",
-                        id: "user_id",
-                        name: "user_id",
-                        value: ""
-                      },
-                      domProps: { value: _vm.category.user_id },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.category, "user_id", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      { staticClass: "help-block" },
-                      [
-                        _vm._l(_vm.errors, function(error) {
-                          return _c("strong", [
-                            _vm._v(_vm._s(error.category[0]))
-                          ])
-                        }),
-                        _c("br")
-                      ],
-                      2
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary col-md-12",
-                    attrs: { "aria-label": "Left Align" }
-                  },
-                  [_vm._v("Add category")]
-                )
-              ]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-7 col-md-offset-2" }, [
-            _c(
-              "table",
-              _vm._l(_vm.categories[0], function(category) {
-                return _c("tr", [
-                  _c("td", [
-                    _vm._v(
-                      "\n              " +
-                        _vm._s(category.category) +
-                        "\n            "
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(category.user_id))]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c(
-                      "a",
-                      {
-                        attrs: { href: "#" },
+                        ],
+                        staticClass: "form-control Error",
+                        attrs: {
+                          type: "text",
+                          id: "category",
+                          name: "category",
+                          placeholder: "Enter category",
+                          value: ""
+                        },
+                        domProps: { value: _vm.category.category },
                         on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            _vm.editCategory(category)
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.category,
+                              "category",
+                              $event.target.value
+                            )
                           }
                         }
-                      },
-                      [_vm._v("edit")]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c(
-                      "a",
-                      {
-                        attrs: { href: "#" },
+                      }),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.category.user_id,
+                            expression: "category.user_id"
+                          }
+                        ],
+                        staticClass: "form-control Error",
+                        attrs: {
+                          type: "hidden",
+                          id: "user_id",
+                          name: "user_id",
+                          value: ""
+                        },
+                        domProps: { value: _vm.category.user_id },
                         on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            _vm.removeCategory(category)
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.category,
+                              "user_id",
+                              $event.target.value
+                            )
                           }
                         }
-                      },
-                      [_vm._v("remove")]
-                    )
-                  ])
-                ])
-              })
-            )
-          ])
-        ])
-      ]),
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        { staticClass: "help-block" },
+                        [
+                          _vm._l(_vm.errors, function(error) {
+                            return _c("strong", [
+                              _vm._v(_vm._s(error.category[0]))
+                            ])
+                          }),
+                          _c("br")
+                        ],
+                        2
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary col-md-12",
+                      attrs: { "aria-label": "Left Align" }
+                    },
+                    [_vm._v("Add category")]
+                  )
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("categories", { attrs: { categories: _vm.categories } })
+        ],
+        1
+      ),
       _vm._v(" "),
       _vm.showModal
         ? _c("modal", [
@@ -43518,7 +43483,6 @@ var render = function() {
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
-                      _vm.addCategory()
                     }
                   }
                 },
@@ -46225,6 +46189,150 @@ exports.push([module.i, "\n#wrapper {\n  margin-top: 60px;\n}\n", ""]);
 
 // exports
 
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(9)
+/* script */
+var __vue_script__ = __webpack_require__(94)
+/* template */
+var __vue_template__ = __webpack_require__(93)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/ListCategoriesComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-236d4548", Component.options)
+  } else {
+    hotAPI.reload("data-v-236d4548", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-7 col-md-offset-2" }, [
+      _c(
+        "table",
+        _vm._l(_vm.categories[0], function(category) {
+          return _c("tr", [
+            _c("td", [
+              _vm._v("\n          " + _vm._s(category.category) + "\n        ")
+            ]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(category.user_id))]),
+            _vm._v(" "),
+            _c("td", [
+              _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      _vm.editCategory(category)
+                    }
+                  }
+                },
+                [_vm._v("edit")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("td", [
+              _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      _vm.removeCategory(category)
+                    }
+                  }
+                },
+                [_vm._v("remove")]
+              )
+            ])
+          ])
+        })
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-236d4548", module.exports)
+  }
+}
+
+/***/ }),
+/* 94 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['categories']
+
+});
 
 /***/ })
 /******/ ]);

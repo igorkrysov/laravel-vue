@@ -17,7 +17,7 @@
         </form>
       </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-7 col-md-offset-2">
         <table>
           <tr v-for="category in categories[0]">
@@ -31,7 +31,10 @@
           </tr>
         </table>
       </div>
-    </div>
+    </div> -->
+
+    <categories v-bind:categories="categories">
+    </categories>
   </div>
 
   <!-- Modal -->
@@ -42,7 +45,7 @@
 
    <div slot="body">
      <!-- <img src="./assets/logo.png" /> -->
-     <form method="post" v-on:submit.prevent="addCategory()">
+     <form method="post" v-on:submit.prevent="">
        <div class="form-group" v-bind:class="{ 'has-error': test()}">
          <label for="category">Category:</label>
          <input type="text" class="form-control Error" id="category" name="category" v-model="edit_category.category" placeholder="Enter category">
@@ -69,10 +72,12 @@
 
 <script>
 import Modal from './Modal';
+import Categories from './ListCategoriesComponent.vue';
 
     export default {
         components: {
-          Modal
+          Modal,
+          Categories
         },
         data() {
           return {

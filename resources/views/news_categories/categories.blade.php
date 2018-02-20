@@ -2,7 +2,7 @@
 
 @section('title', 'News categories')
 @section('content')
-  <Category></Category>
+  <Category ref="foo"></Category>
 @endsection
 
 @push("scripts")
